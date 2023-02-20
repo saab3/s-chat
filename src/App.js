@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react'
+import Cookies from 'universal-cookie'
+import './App.css'
+import Auth from './components/auth'
+import Chatroom from './components/chatroom'
 
-function App() {
+const cookies = new Cookies()
+
+
+function App() {  
+  const [isAuth, setIsAuth] = useState(cookies.get('auth-token'))
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* <div style={{width:"80%"}} className="flex flex-row justify-center items-center"> */}
+      {!isAuth ? <Auth setIsAuth={setIsAuth} /> : <Chatroom />}
+      {/* </div> */}
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
